@@ -1834,8 +1834,8 @@ class FastLlamaModel:
                 else: modules_to_save.append("embed_tokens")
 
             else:
-                assert(module in accepted_modules)
-                final_modules.append(module)
+                if any(accepted_module in module for accepted_module in accepted_modules):
+                    final_modules.append(module)
         pass
 
         # Check if we added new tokens!
