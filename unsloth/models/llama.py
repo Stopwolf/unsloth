@@ -1815,7 +1815,7 @@ class FastLlamaModel:
         train_embed_tokens = False
         final_modules = []
         for module in target_modules:
-            if module == "lm_head":
+            if "lm_head" in module:
                 # logger.warning_once(
                 #     "Unsloth: `lm_head` should be placed in `modules_to_save` and not `target_modules`. "\
                 #     "Luckily, we shall do it for you!"
@@ -1824,7 +1824,7 @@ class FastLlamaModel:
                 if modules_to_save is None: modules_to_save = ["lm_head"]
                 else: modules_to_save.append("lm_head")
 
-            elif module == "embed_tokens":
+            elif "embed_tokens" in module:
                 # logger.warning_once(
                 #     "Unsloth: `embed_tokens` should be placed in `modules_to_save` and not `target_modules`. "\
                 #     "Luckily, we shall do it for you!"
@@ -2062,7 +2062,7 @@ class FastLlamaModel:
 
                 # MLP patching
                 gate_proj = layer.mlp.gate_proj
-                up_proj   = layer.mlp.  up_proj
+                up_proj   = layer.mlp.up_proj
                 down_proj = layer.mlp.down_proj
 
                 if  hasattr(gate_proj, "lora_A") and \
